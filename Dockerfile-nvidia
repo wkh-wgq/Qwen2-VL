@@ -1,5 +1,4 @@
-ARG from=nvidia/cuda:12.6.2-cudnn-devel-ubuntu24.04
-
+ARG from=nvidia/cuda:12.6.2-cudnn-devel-ubuntu22.04
 FROM ${from} as base
 
 ARG DEBIAN_FRONTEND=noninteractive
