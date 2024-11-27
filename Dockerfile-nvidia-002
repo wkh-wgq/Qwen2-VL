@@ -1,2 +1,0 @@
-FROM wangkaihua/qwen2-nvidia-base:001
-RUN pip3 install --no-cache-dir git+https://github.com/huggingface/transformers@21fac7abba2a37fae86106f87fcf9974fd1e383

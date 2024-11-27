@@ -1,4 +1,4 @@
-ARG from=nvidia/cuda:12.6.1-runtime-ubuntu22.04
+ARG from=nvidia/cuda:12.6.2-cudnn-devel-ubuntu24.04
 
 FROM ${from} as base
 
@@ -47,7 +47,9 @@ RUN pip3 install --no-cache-dir git+https://github.com/huggingface/transformers@
 
 FROM bundle_req as bundle_vllm
 
-RUN CUDA_HOME=/usr/local/cuda pip3 install --no-cache-dir --no-build-isolation flash-attn==2.6.1
+ENV CUDA_HOME=/usr/local/cuda
+
+RUN pip3 install --no-cache-dir --no-build-isolation flash-attn==2.6.1
 
 RUN mkdir -p /data/shared/code \
     && cd /data/shared/code \
