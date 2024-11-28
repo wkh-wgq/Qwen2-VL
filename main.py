@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
 from qwen_vl_utils import process_vision_info
 from pydantic import BaseModel
+import requests
+from PIL import Image
 
 app = FastAPI()
 
@@ -20,7 +22,7 @@ def image_recognition(
         attn_implementation="flash_attention_2",
         device_map="auto",
     )
-
+    image_obj = Image.open(requests.get(form_data.image_url, stream=True, verify=False).raw)
     # default processer
     processor = AutoProcessor.from_pretrained("Qwen/Qwen2-VL-2B-Instruct")
     messages = [
@@ -29,7 +31,7 @@ def image_recognition(
             "content": [
                 {
                     "type": "image",
-                    "image": form_data.image_url,
+                    "image": image_obj,
                 },
                 {"type": "text", "text": form_data.prompt},
             ],
